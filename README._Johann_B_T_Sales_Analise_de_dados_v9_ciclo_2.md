@@ -41,5 +41,5 @@ Um ponto de atenção: as linhas com "#N/D" eram todas de um único produto (o d
 Porque  manteve valores #N/D ?
 
 
-interpretei que este valor se deve em relação a um produto que foi comprado mas no ato de registrar o produto a maquina falhou,supostamente e hipoteticamente, em reconhecer o produto assim registrando como n/d.Se eu retirase este valor ao rodar o programa um cliente que comprou um unico produto não seria registrado na conta do mercado ,ou seja,estaria alterando os valores de dependentes,genero,horario e entre outros.Desta forma,ao não excluir este dado ainda mantenho na minha data base o conhecimento do cliente registrado ao invés de ignorar e evitando criar um vies sobre meus clientes. 
+interpretei que este valor se deve em relação a um produto que foi comprado ,mas no ato de registrar o produto a maquina falhou,supostamente e hipoteticamente, em reconhecer o produto assim registrando como n/d.Se eu retirase este valor ao rodar o programa um cliente que comprou um unico produto não seria registrado na conta do mercado ,ou seja,estaria alterando os valores de dependentes,genero,horario e entre outros.Desta forma,ao não excluir este dado ainda mantenho na minha data base o conhecimento do cliente registrado ao invés de ignorar e evitando criar um vies sobre meus clientes. 
 
