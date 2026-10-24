@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------
 # Imports
 # ----------------------------------------------------------------------
-
+ 
 import os
  
 import numpy as np
@@ -15,6 +15,7 @@ from rich.panel import Panel
  
 DIRETORIO_SCRIPT = os.path.dirname(os.path.abspath(__file__))
 CAMINHO_CSV = os.path.join(DIRETORIO_SCRIPT, "Base varejo.csv")
+ARQUIVO_LIMPO = "df_limpo.csv"
 SEPARADOR_CSV = ";"
 MAX_LINHAS_EXIBIDAS = 150
  
@@ -91,20 +92,42 @@ def carregar_dados():
     return pd.read_csv(CAMINHO_CSV, sep=SEPARADOR_CSV)
  
  
+def preencher_categoria(valor):
+    """Se a categoria estiver vazia, devolve 'Sem Categoria'."""
+    if pd.isna(valor):
+        return "Sem Categoria"
+    else:
+        return valor
+ 
+ 
+def preencher_nome(valor):
+    """Se o nome do produto estiver vazio, devolve 'Sem Nome'."""
+    if pd.isna(valor):
+        return "Sem Nome"
+    else:
+        return valor
+ 
+ 
 def tratar_dados(df):
-    """Renomeia as colunas e troca os valores ausentes por NaN."""
+    """Renomeia as colunas, troca os ausentes por NaN e preenche os vazios."""
     df = df.rename(columns=COLUNAS_RENOMEADAS)
     df.replace(VALORES_NULOS, np.nan, inplace=True)
+ 
+    # Preenche categoria e nome vazios para não perder as compras
+    categorias_vazias = int(df["categoria"].isna().sum())
+    df["categoria"] = df["categoria"].map(preencher_categoria)
+    df["nome_do_produto"] = df["nome_do_produto"].map(preencher_nome)
+    print(f"Categorias preenchidas com 'Sem Categoria': {categorias_vazias}")
     return df
  
  
-def executar_limpeza():
-    """Aplica a limpeza sobre o CSV e salva o resultado."""
-    limpeza = LimpezaDados(pd.read_csv(CAMINHO_CSV, sep=SEPARADOR_CSV))
-    limpeza.executar()
+def executar_limpeza(df):
+    """Limpa o DataFrame, salva a base limpa e devolve o resultado."""
+    limpeza = LimpezaDados(df)
+    df_limpo = limpeza.executar()
     limpeza.mostrar_relatorio()
-    limpeza.salvar_csv(CAMINHO_CSV)
-    print(f"Base limpa salva em: {CAMINHO_CSV}")
+    limpeza.salvar_csv(ARQUIVO_LIMPO)
+    return df_limpo
  
  
 # ----------------------------------------------------------------------
@@ -155,7 +178,7 @@ def mostrar_d_categorias(df):
  
     texto = (
         f"[bold]categorias_numero:[/] \n{categorias_numero} \n\n   "
-        f"[bold]categorias_percentual:[/] \n{categorias_percentual}%\n\n  " 
+        f"[bold]categorias_percentual:[/] \n{categorias_percentual}%\n\n  "
         f"[bold]categorias_produto:[/] \n{categorias_produto}%\n\n"
         f"[bold]percentual_total:[/] \n{percentual_total}%\n\n"
     )
@@ -182,7 +205,7 @@ def mostrar_d_dependentes(df):
         df.groupby("dependentes")["categoria"]
         .value_counts(normalize=True) * 100
     )
-    
+ 
     media = df["dependentes"].mean()
     mediana = df["dependentes"].median()
     desvio_padrao = df["dependentes"].std()
@@ -217,8 +240,7 @@ def main():
     df = carregar_dados()
     pd.set_option("display.max_rows", MAX_LINHAS_EXIBIDAS)
     df = tratar_dados(df)
- 
-    executar_limpeza()
+    df = executar_limpeza(df)
  
     mostrar_d_genero(df)
     mostrar_d_categorias(df)
