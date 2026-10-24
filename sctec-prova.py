@@ -1,4 +1,3 @@
-
 # ----------------------------------------------------------------------
 # Imports
 # ----------------------------------------------------------------------
@@ -127,8 +126,8 @@ def mostrar_d_genero(df):
  
     # Colocando no quadro
     texto = (
-        f"[bold]gênero número:[/] {genero_numero}    "
-        f"[bold]gênero percentual:[/] {genero_percentual}%"
+        f"[bold]gênero número:[/] \n{genero_numero} \n\n   "
+        f"[bold]gênero percentual:[/] \n{genero_percentual}%\n\n"
     )
     console.print(Panel(texto, title="DADOS GÊNERO", expand=False))
  
@@ -155,10 +154,10 @@ def mostrar_d_categorias(df):
     percentual_total = df["nome_do_produto"].value_counts(normalize=True) * 100
  
     texto = (
-        f"[bold]categorias_numero:[/] {categorias_numero}    "
-        f"[bold]categorias_percentual:[/] {categorias_percentual}%"
-        f"[bold]categorias_produto:[/] {categorias_produto}%"
-        f"[bold]percentual_total:[/] {percentual_total}%"
+        f"[bold]categorias_numero:[/] \n{categorias_numero} \n\n   "
+        f"[bold]categorias_percentual:[/] \n{categorias_percentual}%\n\n  " 
+        f"[bold]categorias_produto:[/] \n{categorias_produto}%\n\n"
+        f"[bold]percentual_total:[/] \n{percentual_total}%\n\n"
     )
     console.print(Panel(texto, title="DADOS CATEGORIAS", expand=False))
  
@@ -183,11 +182,28 @@ def mostrar_d_dependentes(df):
         df.groupby("dependentes")["categoria"]
         .value_counts(normalize=True) * 100
     )
+    
+    media = df["dependentes"].mean()
+    mediana = df["dependentes"].median()
+    desvio_padrao = df["dependentes"].std()
+    moda = df["dependentes"].mode()[0]
+    maximo = df["dependentes"].max()
+    minimo = df["dependentes"].min()
+    contagem = df["dependentes"].count()
+    quartis = df["dependentes"].quantile([0.25, 0.50, 0.75])
  
     # Colocando no quadro
     texto = (
-        f"[bold]dependentes:[/] {dependentes}    "
-        f"[bold]dependentes_consumo:[/] {dependentes_consumo}%"
+        f"[bold]dependentes:[/] \n{dependentes}\n\n    "
+        f"[bold]clientes_consumo:[/] \n{dependentes_consumo} \n\n   "
+        f"[bold]media:[/] \n{media}\n\n"
+        f"[bold]mediana:[/] \n{mediana}\n\n"
+        f"[bold]desvio_padrao:[/] \n{desvio_padrao}\n\n"
+        f"[bold]moda:[/] \n{moda}\n\n"
+        f"[bold]maximo:[/] \n{maximo}\n\n"
+        f"[bold]minimo:[/] \n{minimo}\n\n"
+        f"[bold]contagem:[/] \n{contagem}\n\n"
+        f"[bold]quartis:[/] \n{quartis}\n\n"
     )
     console.print(Panel(texto, title="DADOS DEPENDENTES", expand=False))
  
