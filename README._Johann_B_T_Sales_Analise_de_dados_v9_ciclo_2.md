@@ -8,7 +8,7 @@ Para analisar alguns dos dados fornecidos pela fonte do Kaggle (https://www.kagg
 
 Como usar
 
-Abra o Visual Studio Code, abra a pasta do projeto e deixe o CSV da base na mesma pasta do programa. Os imports necessários são o pandas, o numpy e o rich (Console e Panel), além do os, que já vem com o Python. Instale com pip install pandas numpy rich e execute com python sctec-prova.py. Há mais detalhes no arquivo de instruções do repositório.
+Abra o Visual Studio Code, abra a pasta do projeto e deixe o CSV da base na mesma pasta do programa. Os imports necessários são o pandas, o numpy e o rich (Console e Panel), além do os, que já vem com o Python. Instale com pip install pandas numpy rich e execute com python sctec-prova.py.
 
 Sobre a base
 
