@@ -12,9 +12,9 @@ Abra o Visual Studio Code, abra a pasta do projeto e deixe o CSV da base na mesm
 
 python -m venv venv
 venv\Scripts\activate # Windows
-pip install pandas openpyxl rich
+pip install pandas numpy rich
 
-Os imports necessários são o pandas, o numpy e o rich (Console e Panel), além do os, que já vem com o Python. Instale com pip install pandas numpy rich e execute com python sctec-prova.py. Há mais detalhes no arquivo de instruções do repositório.
+Os imports necessários são o pandas, o numpy e o rich (Console e Panel), além do os, que já vem com o Python. Instale com pip install pandas numpy rich e execute com python sctec-prova.py. 
 
 Sobre a base
 
@@ -22,7 +22,7 @@ A base tem 830.000 registros de compras. Cada linha traz o código da compra, o 
 
 O que o programa faz
 
-Primeiro o programa carrega o CSV e troca os nomes das colunas por nomes mais fáceis de entender, como codigo_de_cliente, genero e dependentes. Depois troca os valores "#N/D" por NaN, para o pandas reconhecer que são dados ausentes, e preenche esses vazios com "Sem Categoria" (na categoria) e "Sem Nome" (no nome do produto), usando if/else, para não perder essas compras. A limpeza fica em uma classe chamada LimpezaDados, que remove colunas vazias, linhas com nulos e linhas duplicadas, e mostra um relatório. A base limpa é salva em um arquivo novo, o df_limpo.csv, e o CSV original não é alterado. Nesta base foram preenchidas 3.650 categorias vazias ("#N/D") e removidas 96.553 linhas duplicadas. Sobraram 733.447 registros dos 830.000 iniciais.
+Primeiro o programa carrega o CSV e troca os nomes das colunas por nomes mais fáceis de entender, como codigo_de_cliente, genero e dependentes. Depois troca os valores "#N/D" por NaN, para o pandas reconhecer que são dados ausentes, e preenche esses vazios com "Sem Categoria" (na categoria) e "Sem Nome" (no nome do produto). A limpeza fica em uma classe chamada LimpezaDados, que remove colunas vazias, linhas com nulos e linhas duplicadas, e mostra um relatório. A base limpa é salva em um arquivo novo, o df_limpo.csv, e o CSV original não é alterado.Sobraram 733.447 registros dos 830.000 iniciais.
 
 Em seguida o programa faz três análises e mostra cada uma em uma caixa do rich. Na de gênero, cada cliente é contado uma vez só (usei o código do cliente para não contar o mesmo cliente de novo a cada compra). Na de categorias, ele conta o consumo de cada categoria e a participação de cada produto. Na de dependentes, ele conta os registros por número de filhos, calcula o consumo de cada categoria dentro de cada grupo e mostra as estatísticas: média, mediana, desvio padrão, moda, máximo, mínimo, contagem e quartis.
 
