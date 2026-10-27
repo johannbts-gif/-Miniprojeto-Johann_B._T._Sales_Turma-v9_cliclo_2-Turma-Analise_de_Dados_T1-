@@ -37,7 +37,7 @@ VALORES_NULOS = [
     "#N/D",
     "N/D",
     "produto desconhecido",
-    "produto desonhecido ",
+    "produto desconhecido ",
 ]
  
 console = Console()
